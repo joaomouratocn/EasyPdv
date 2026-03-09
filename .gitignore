@@ -1,0 +1,56 @@
+===== BACKEND =====
+# Arquivos do intellij
+api/HELP.md
+api/target/
+api/.mvn/wrapper/maven-wrapper.jar
+EasyPdvBe/.idea
+EasyPdvBe/*.iws
+EasyPdvBe/*.iml
+EasyPdvBe/*.ipr
+EasyPdvBe/*.yml
+EasyPdvBe/application-dev.properties
+
+===== FRONTEND =====
+# Arquivos e pastas do Visual Studio
+# Compiled output
+EasyPdvApp/dist
+EasyPdvApp/tmp
+EasyPdvApp/out-tsc
+EasyPdvApp/bazel-out
+
+# Node
+EasyPdvApp/node_modules
+EasyPdvApp/pm-debug.log
+EasyPdvApp/yarn-error.log
+
+# IDEs and editors
+EasyPdvApp/.idea/
+EasyPdvApp/.project
+EasyPdvApp/.classpath
+EasyPdvApp/.c9/
+EasyPdvApp/*.launch
+EasyPdvApp/.settings/
+EasyPdvApp/*.sublime-workspace
+
+# Visual Studio Code
+EasyPdvApp/.vscode/*
+EasyPdvApp/!.vscode/settings.json
+EasyPdvApp/!.vscode/tasks.json
+EasyPdvApp/!.vscode/launch.json
+EasyPdvApp/!.vscode/extensions.json
+EasyPdvApp/!.vscode/mcp.json
+EasyPdvApp/.history/*
+
+# Miscellaneous
+EasyPdvApp/.angular/cache
+EasyPdvApp/.sass-cache/
+EasyPdvApp/connect.lock
+EasyPdvApp/coverage
+EasyPdvApp/libpeerconnection.log
+EasyPdvApp/typings
+__screenshots__/
+
+# System files
+EasyPdvApp/.DS_Store
+EasyPdvApp/Thumbs.db
+
