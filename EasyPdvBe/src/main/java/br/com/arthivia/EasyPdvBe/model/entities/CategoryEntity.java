@@ -20,7 +20,7 @@ public class CategoryEntity {
     String name;
 
     public CategoryEntity(String name) {
-        this.name = name.toUpperCase();
+        this.name = name;
     }
 
     public CategoryDto toCategoryDto() {
