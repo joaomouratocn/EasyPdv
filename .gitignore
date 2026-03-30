@@ -4,6 +4,7 @@ api/target/
 api/.mvn/wrapper/maven-wrapper.jar
 api/!**/src/main/**/target/
 api/!**/src/test/**/target/
+api/logs
 
 ### STS ###
 api/.apt_generated
