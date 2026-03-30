@@ -1,0 +1,79 @@
+========== SPRING BOOT IGNORE ==========
+HELP.md
+api/target/
+api/.mvn/wrapper/maven-wrapper.jar
+api/!**/src/main/**/target/
+api/!**/src/test/**/target/
+
+### STS ###
+api/.apt_generated
+api/.classpath
+api/.factorypath
+api/.project
+api/.settings
+api/.springBeans
+api/.sts4-cache
+
+### IntelliJ IDEA ###
+api/.idea
+api/*.iws
+api/*.iml
+api/*.ipr
+
+### NetBeans ###
+api/nbproject/private/
+api/nbbuild/
+api/dist/
+api/nbdist/
+api/.nb-gradle/
+api/build/
+api/!**/src/main/**/build/
+api/!**/src/test/**/build/
+
+### VS Code ###
+api/.vscode/
+
+========== ANGULAR IGNORE ==========
+
+# Compiled output
+app/dist
+app/tmp
+app/out-tsc
+app/bazel-out
+
+# Node
+app/node_modules
+app/npm-debug.log
+app/yarn-error.log
+
+# IDEs and editors
+app/.idea/
+app/.project
+app/.classpath
+app/.c9/
+app/*.launch
+app/.settings/
+app/*.sublime-workspace
+
+# Visual Studio Code
+app/.vscode/*
+app/!.vscode/settings.json
+app/!.vscode/tasks.json
+app/!.vscode/launch.json
+app/!.vscode/extensions.json
+app/!.vscode/mcp.json
+app/.history/*
+
+# Miscellaneous
+app/.angular/cache
+app/.sass-cache/
+app/connect.lock
+app/coverage
+app/libpeerconnection.log
+app/testem.log
+app/typings
+app/__screenshots__/
+
+# System files
+app/.DS_Store
+app/Thumbs.db
