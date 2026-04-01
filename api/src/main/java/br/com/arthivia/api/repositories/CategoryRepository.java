@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
+public interface CategoryRepository extends JpaRepository<CategoryEntity, UUID> {
     Optional<CategoryEntity> findByName(String name);
 
     List<CategoryEntity> findAllByActiveTrue();
@@ -19,5 +20,5 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
     @Modifying
     @Transactional
     @Query("UPDATE CategoryEntity c SET c.active = false WHERE c.id = :id")
-    void disableCategory(Long id);
+    void disableCategory(UUID id);
 }

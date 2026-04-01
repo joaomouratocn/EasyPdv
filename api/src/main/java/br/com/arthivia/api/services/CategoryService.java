@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class CategoryService {
         return "Category created successfully.";
     }
 
-    public String updateCategory(Long id, String name) {
+    public String updateCategory(UUID id, String name) {
         var category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category with id '" + id + "' not found."));
 
         if (name == null || name.isEmpty()) {
@@ -39,7 +40,7 @@ public class CategoryService {
         return "Category updated successfully.";
     }
 
-    public String deleteCategory(Long id) {
+    public String deleteCategory(UUID id) {
         categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category with id '" + id + "' not found."));
         categoryRepository.disableCategory(id);
         return "Category deleted successfully.";
@@ -48,7 +49,7 @@ public class CategoryService {
     public List<CategoryDto> getAllCategories() {
         var categories = categoryRepository.findAllByActiveTrue();
         return categories.stream()
-                .map(c -> new CategoryDto(c.getId(), c.getName()))
+                .map(c -> new CategoryDto(c.getId().toString(), c.getName()))
                 .toList();
     }
 }

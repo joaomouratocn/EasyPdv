@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,13 +24,13 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<SuccessResponse> updateCategory(@RequestParam @Valid Long id, @RequestParam @Valid String name) {
+    public ResponseEntity<SuccessResponse> updateCategory(@RequestParam @Valid UUID id, @RequestParam @Valid String name) {
         var result = categoryService.updateCategory(id, name);
         return ResponseEntity.ok(new SuccessResponse(result));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<SuccessResponse> deleteCategory(@RequestParam @Valid Long id) {
+    public ResponseEntity<SuccessResponse> deleteCategory(@RequestParam @Valid UUID id) {
         var result = categoryService.deleteCategory(id);
         return ResponseEntity.ok(new SuccessResponse(result));
     }
