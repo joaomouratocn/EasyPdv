@@ -17,7 +17,7 @@ export class MeasureService {
   }
 
   updateMeasure(name: string, id: string): Observable<SuccessResponse> {
-    const params = new HttpParams().set('name', name).set('id', id);
+    const params = new HttpParams().set('id', id).set('name', name);
     return this.http.put<SuccessResponse>(`${this.API}/update`, null, { params });
   }
 

@@ -7,6 +7,7 @@ import { MeasureDialog } from '../../dialogs/measure-dialog/measure-dialog';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmDeleteDialog } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog';
 
 @Component({
   selector: 'app-measure-component',
@@ -56,33 +57,51 @@ export class MeasureComponent {
 
   openDialogMeasure(measure: MeasureDto) {
     const dialogRef = this.dialog.open(MeasureDialog, {
+      width: '400px',
       disableClose: true,
       data: { measure: measure.name },
     });
 
     dialogRef.afterClosed().subscribe((result: string) => {
-      if (measure.id === '') {
-        this.measureService.createMeasure(result).subscribe({
-          next: (response) => {
-            this.snackBar.open(response.message, 'OK', { duration: 2000 });
-          },
-          error: (err) => {
-            this.snackBar.open(err.error.message, 'X', {
-              panelClass: ['error-snackbar'],
-            });
-          },
-          complete: () => {
-            this.loadMeasure();
-          },
-        });
+      if (result) {
+        if (measure.id === '') {
+          this.measureService.createMeasure(result).subscribe({
+            next: (response) => {
+              this.snackBar.open(response.message, 'OK', { duration: 2000 });
+            },
+            error: (err) => {
+              this.snackBar.open(err.error.message, 'X', {
+                panelClass: ['error-snackbar'],
+              });
+            },
+            complete: () => {
+              this.loadMeasure();
+            },
+          });
+        } else {
+          this.measureService.updateMeasure(result, measure.id).subscribe({
+            next: (response) => {
+              this.snackBar.open(response.message, 'OK', { duration: 2000 });
+            },
+            error: (err) => {
+              this.snackBar.open(err.error.message, 'X', {
+                panelClass: ['error-snackbar'],
+              });
+            },
+            complete: () => {
+              this.loadMeasure();
+            },
+          });
+        }
       }
     });
   }
 
   openDialogDeleteMeasure(measure: MeasureDto) {
-    const dialogRef = this.dialog.open(MeasureDialog, {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialog, {
+      width: '400px',
       disableClose: true,
-      data: { measure: measure.name },
+      data: { name: measure.name },
     });
 
     dialogRef.afterClosed().subscribe((result: string) => {

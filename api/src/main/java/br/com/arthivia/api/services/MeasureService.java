@@ -3,6 +3,7 @@ package br.com.arthivia.api.services;
 import br.com.arthivia.api.models.dtos.MeasureDto;
 import br.com.arthivia.api.models.entities.MeasureEntity;
 import br.com.arthivia.api.repositories.MeasureRepository;
+import br.com.arthivia.api.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class MeasureService {
             throw new RuntimeException("Measure name cannot be null or empty.");
         }
         var measure = new MeasureEntity();
-        measure.setName(name);
+        measure.setName(Util.normalizeText(name));
         measure.setActive(true);
         measureRepository.save(measure);
         return "Measure created successfully.";
@@ -35,7 +36,7 @@ public class MeasureService {
         if (name == null || name.isEmpty()) {
             throw new RuntimeException("Measure name cannot be null or empty.");
         }
-        measure.setName(name);
+        measure.setName(Util.normalizeText(name));
         measureRepository.save(measure);
         return "Measure updated successfully.";
     }

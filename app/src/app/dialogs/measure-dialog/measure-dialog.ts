@@ -13,7 +13,7 @@ export class MeasureDialog {
   public data = inject(MAT_DIALOG_DATA);
   private dialogRef = inject(MatDialogRef<CategooryDialog>);
 
-  measureName = this.data.categoryName;
+  measureName = this.data.measure;
 
   cancel() {
     this.dialogRef.close();
