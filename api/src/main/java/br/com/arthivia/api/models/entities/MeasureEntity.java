@@ -1,7 +1,6 @@
 package br.com.arthivia.api.models.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +11,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "category")
-public class CategoryEntity {
+@Table(name = "measure")
+public class MeasureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

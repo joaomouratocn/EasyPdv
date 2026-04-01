@@ -1,32 +1,32 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoryDto } from '../models/dtos/category-dto';
 import { SuccessResponse } from '../models/dtos/success-response';
+import { MeasureDto } from '../models/dtos/measure-dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoryService {
-  private readonly API = '/api/categories';
+export class MeasureService {
+  private readonly API = '/api/measures';
   private http = inject(HttpClient);
 
-  createCategory(name: string): Observable<SuccessResponse> {
+  createMeasure(name: string): Observable<SuccessResponse> {
     const params = new HttpParams().set('name', name);
     return this.http.post<SuccessResponse>(`${this.API}/create`, null, { params });
   }
 
-  updateCategory(name: string, id: string): Observable<SuccessResponse> {
-    const params = new HttpParams().set('name', name).set('id', id.toString());
+  updateMeasure(name: string, id: string): Observable<SuccessResponse> {
+    const params = new HttpParams().set('name', name).set('id', id);
     return this.http.put<SuccessResponse>(`${this.API}/update`, null, { params });
   }
 
-  deleteCategory(id: string): Observable<SuccessResponse> {
-    const params = new HttpParams().set('id', id.toString());
+  deleteMeasure(id: string): Observable<SuccessResponse> {
+    const params = new HttpParams().set('id', id);
     return this.http.delete<SuccessResponse>(`${this.API}/delete`, { params });
   }
 
-  getAllCategories(): Observable<CategoryDto[]> {
-    return this.http.get<CategoryDto[]>(`${this.API}/all`);
+  getAllMeasures(): Observable<MeasureDto[]> {
+    return this.http.get<MeasureDto[]>(`${this.API}/all`);
   }
 }

@@ -21,14 +21,13 @@ export class CategoryComponent {
   private snackBar = inject(MatSnackBar);
 
   categoryName = model<string>('');
-
   loading = signal<boolean>(true);
 
   categories = signal<CategoryDto[]>([]);
   filteredCategories = computed(() => {
     return this.categories()
       .filter((category) => category.name.toLowerCase().includes(this.categoryName().toLowerCase()))
-      .sort((a, b) => a.name.localeCompare(b.name)); // Ordenação alfabética
+      .sort((a, b) => a.name.localeCompare(b.name));
   });
 
   ngOnInit() {
@@ -46,7 +45,9 @@ export class CategoryComponent {
         this.categories.set(categories);
       },
       error: (err) => {
-        console.error(err);
+        this.snackBar.open(err.error.message, 'X', {
+          panelClass: ['error-snackbar'],
+        });
       },
       complete: () => {
         this.loading.set(false);
@@ -63,7 +64,7 @@ export class CategoryComponent {
 
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
-        if (category.id === 0) {
+        if (category.id === '') {
           this.categoryService.createCategory(result).subscribe({
             next: (response) => {
               this.snackBar.open(response.message, 'OK', { duration: 2000 });
