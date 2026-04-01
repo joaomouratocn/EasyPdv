@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/categories")
-@CrossOrigin("*")
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -23,7 +22,7 @@ public class CategoryController {
         return ResponseEntity.ok(new SuccessResponse(result));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<SuccessResponse> updateCategory(@RequestParam @Valid Long id, @RequestParam @Valid String name) {
         var result = categoryService.updateCategory(id, name);
         return ResponseEntity.ok(new SuccessResponse(result));

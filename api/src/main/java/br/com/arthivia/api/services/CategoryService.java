@@ -2,6 +2,7 @@ package br.com.arthivia.api.services;
 
 import br.com.arthivia.api.models.dtos.CategoryDto;
 import br.com.arthivia.api.repositories.CategoryRepository;
+import br.com.arthivia.api.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class CategoryService {
             throw new RuntimeException("Category name cannot be null or empty.");
         }
         var category = new br.com.arthivia.api.models.entities.CategoryEntity();
-        category.setName(name);
+        category.setName(Util.normalizeText(name));
         category.setActive(true);
         categoryRepository.save(category);
         return "Category created successfully.";
@@ -33,7 +34,7 @@ public class CategoryService {
         if (name == null || name.isEmpty()) {
             throw new RuntimeException("Category name cannot be null or empty.");
         }
-        category.setName(name);
+        category.setName(Util.normalizeText(name));
         categoryRepository.save(category);
         return "Category updated successfully.";
     }

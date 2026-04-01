@@ -1,0 +1,29 @@
+<div class="p-4">
+  <h2 class="font-semibold">Nova Categoria</h2>
+  <mat-dialog-content>
+    <div class="flex flex-col gap-1">
+      <label for="" class="text-gray-700">Insira o nome da categoria</label>
+      <input
+        type="text"
+        [(ngModel)]="categoryName"
+        placeholder="Ex: Alimentos"
+        class="border rounded-lg p-2 mb-4 w-full focus:ring focus:ring-blue-500 outline-none"
+      />
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="flex gap-1">
+    <button
+      mat-button
+      (click)="cancel()"
+      class="bg-red-600 text-white rounded-lg px-6 py-2 block hover:bg-red-700 font-medium shadow-md transition-transform active:scale-95"
+    >
+      Cancelar
+    </button>
+    <button
+      [mat-dialog-close]="categoryName"
+      class="bg-blue-600 text-white rounded-lg px-6 py-2 block hover:bg-blue-700 font-medium shadow-md transition-transform active:scale-95"
+    >
+      Salvar
+    </button>
+  </mat-dialog-actions>
+</div>
