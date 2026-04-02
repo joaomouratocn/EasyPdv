@@ -41,9 +41,9 @@ public class ProductController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/name")
-    public ResponseEntity<List<ProductDto>> getProductsByName(@RequestParam @Valid String name) {
-        var result = productService.getAllProductsByName(name);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<ProductDto> getProductsByName(@PathVariable @Valid UUID id) {
+        var result = productService.getAllProductsById(id);
         return ResponseEntity.ok(result);
     }
 }

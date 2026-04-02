@@ -44,7 +44,7 @@ public class CategoryService {
     public List<CategoryDto> getAllCategories() {
         var categories = categoryRepository.findAllByActiveTrue();
         return categories.stream()
-                .map(c -> new CategoryDto(c.getId().toString(), c.getName()))
+                .map(c -> new CategoryDto(c.getId(), c.getName()))
                 .toList();
     }
 }

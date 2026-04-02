@@ -78,3 +78,5 @@ app/__screenshots__/
 # System files
 app/.DS_Store
 app/Thumbs.db
+
+.vscode

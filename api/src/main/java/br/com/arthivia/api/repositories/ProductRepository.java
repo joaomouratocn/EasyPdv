@@ -13,5 +13,4 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     List<ProductEntity> findAllByActiveTrue();
     Optional<ProductEntity> findByIdAndActiveTrue(UUID id);
     Optional<ProductEntity> findByBarcodeAndActiveTrue(String barcode);
-    List<ProductEntity> findByNameIgnoreCaseAndActiveTrue(String name);
 }

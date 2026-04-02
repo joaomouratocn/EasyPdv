@@ -1,13 +1,16 @@
 package br.com.arthivia.api.services;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
 import br.com.arthivia.api.models.dtos.ProductDto;
+import br.com.arthivia.api.models.entities.CategoryEntity;
+import br.com.arthivia.api.models.entities.MeasureEntity;
 import br.com.arthivia.api.models.entities.ProductEntity;
 import br.com.arthivia.api.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +25,8 @@ public class ProductService {
         var product = new ProductEntity();
         product.setName(productDto.name());
         product.setBarcode(productDto.barcode());
-        product.setCategory_id(productDto.category_id());
-        product.setMeasure_id(productDto.measure_id());
+        product.setCategory(new CategoryEntity(productDto.category()));
+        product.setMeasure(new MeasureEntity(productDto.measure()));
         product.setDescription(productDto.description());
         product.setStock(productDto.stock());
         product.setBuy_price(productDto.buy_price());
@@ -43,8 +46,8 @@ public class ProductService {
 
         product.setName(productDto.name());
         product.setBarcode(productDto.barcode());
-        product.setCategory_id(productDto.category_id());
-        product.setMeasure_id(productDto.measure_id());
+        product.setCategory(new CategoryEntity(productDto.category()));
+        product.setMeasure(new MeasureEntity(productDto.measure()));
         product.setDescription(productDto.description());
         product.setStock(productDto.stock());
         product.setBuy_price(productDto.buy_price());
@@ -69,7 +72,8 @@ public class ProductService {
         return productRepository.findAllByActiveTrue().stream().map(ProductDto::new).toList();
     }
 
-    public List<ProductDto> getAllProductsByName(String name) {
-        return productRepository.findByNameIgnoreCaseAndActiveTrue(name).stream().map(ProductDto::new).toList();
+    public ProductDto getAllProductsById(UUID id) {
+        var productEntity = productRepository.findByIdAndActiveTrue(id).orElseThrow(() -> new RuntimeException("Product with id '" + id + "' not found."));
+        return new ProductDto(productEntity);
     }
 }

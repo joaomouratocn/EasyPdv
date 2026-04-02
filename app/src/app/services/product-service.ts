@@ -27,8 +27,7 @@ export class ProductService {
     return this.http.get<ProductDto[]>(`${this.API}/all`);
   }
 
-  getProductsByName(name: string): Observable<ProductDto[]> {
-    const params = new HttpParams().set('name', name);
-    return this.http.get<ProductDto[]>(`${this.API}/name`, { params });
+  getProductById(id: string): Observable<ProductDto> {
+    return this.http.get<ProductDto>(`${this.API}/get/${id}`);
   }
 }

@@ -21,13 +21,18 @@ public class ProductEntity {
     private String name;
     private String description;
     private String barcode;
-    private UUID category_id;
-    private UUID measure_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "measure_id")
+    private MeasureEntity measure;
     private BigDecimal stock;
     private BigDecimal buy_price;
     private BigDecimal sale_price;
     private BigDecimal min_stock;
     private boolean alert_stock;
     private boolean active;
+    @Column(updatable = false)
     private LocalDateTime created_at;
 }

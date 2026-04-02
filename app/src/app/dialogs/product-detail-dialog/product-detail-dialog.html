@@ -1,0 +1,60 @@
+<div class="p-4">
+  <h2 class="font-semibold text-gray-700">Detalhes do produto</h2>
+  <mat-dialog-content>
+    <div class="mt-4 space-y-3">
+      <div>
+        <span class="font-medium text-gray-600">Nome: </span>
+        <span class="text-gray-800 font-semibold">{{ data.product.name }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-600">Código de Barras: </span>
+        <span class="text-gray-800 font-semibold">{{ data.product.barcode }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-600">Preço de Compra: </span>
+        <span class="text-green-800 font-semibold">{{
+          data.product.buy_price | currency: 'BRL'
+        }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-600">Preço de Venda: </span>
+        <span class="text-red-800 font-semibold">{{
+          data.product.sale_price | currency: 'BRL'
+        }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-600">Categoria: </span>
+        <span class="text-gray-800 font-semibold">{{ data.product.category.name }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-600">Unidade de medida: </span>
+        <span class="text-gray-800 font-semibold">{{ data.product.measure.name }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-600">Quantidade em Estoque: </span>
+        <span class="text-gray-800 font-semibold">{{ data.product.stock }}</span>
+      </div>
+      <div>
+        <span class="font-medium text-gray-600">Descrição: </span>
+        <p class="text-gray-800 font-semibold whitespace-pre-wrap">
+          {{ data.product.description || 'Sem descrição disponível.' }}
+        </p>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="flex gap-1">
+    <button
+      mat-button
+      [mat-dialog-close]="false"
+      class="bg-red-600 text-white rounded-lg px-6 py-2 block hover:bg-red-700 font-medium shadow-md transition-transform active:scale-95"
+    >
+      Fechar
+    </button>
+    <button
+      [mat-dialog-close]="true"
+      class="bg-blue-600 text-white rounded-lg px-6 py-2 block hover:bg-blue-700 font-medium shadow-md transition-transform active:scale-95"
+    >
+      Alterar
+    </button>
+  </mat-dialog-actions>
+</div>

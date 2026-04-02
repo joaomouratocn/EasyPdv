@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+import br.com.arthivia.api.models.dtos.MeasureDto;
+
 @Entity
 @Getter
 @Setter
@@ -18,4 +20,10 @@ public class MeasureEntity {
     private UUID id;
     private String name;
     private boolean active;
+
+    public MeasureEntity(MeasureDto measureDto) {
+        this.id = measureDto.id();
+        this.name = measureDto.name();
+
+    }
 }

@@ -18,9 +18,9 @@ public record ProductDto(
         @NotBlank
         String barcode,
         @NotNull
-        UUID category_id,
+        CategoryDto category,
         @NotNull
-        UUID measure_id,
+        MeasureDto measure,
         @NotNull
         @Positive
         BigDecimal stock,
@@ -42,8 +42,8 @@ public record ProductDto(
                 productEntity.getName(),
                 productEntity.getDescription(),
                 productEntity.getBarcode(),
-                productEntity.getCategory_id(),
-                productEntity.getMeasure_id(),
+                new CategoryDto(productEntity.getCategory()),
+                new MeasureDto(productEntity.getMeasure()),
                 productEntity.getStock(),
                 productEntity.getBuy_price(),
                 productEntity.getSale_price(),
