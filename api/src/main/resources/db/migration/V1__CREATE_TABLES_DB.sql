@@ -90,6 +90,7 @@ CREATE TABLE "products" (
     "sale_price" decimal(13,2) NOT NULL,
     "min_stock" decimal(13,2) DEFAULT 1,
     "alert_stock" boolean DEFAULT true,
+    "active" boolean DEFAULT true,
     "created_at" timestamp DEFAULT (now())
 );
 

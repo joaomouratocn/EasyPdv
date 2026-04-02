@@ -1,6 +1,7 @@
 package br.com.arthivia.api.services;
 
 import br.com.arthivia.api.models.dtos.CategoryDto;
+import br.com.arthivia.api.models.entities.CategoryEntity;
 import br.com.arthivia.api.repositories.CategoryRepository;
 import br.com.arthivia.api.util.Util;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,7 @@ public class CategoryService {
                 throw new RuntimeException("The category with name " + c.getName() + "' already exists. if you not found contact the support.");
         });
 
-        if (name == null || name.isEmpty()) {
-            throw new RuntimeException("Category name cannot be null or empty.");
-        }
-        var category = new br.com.arthivia.api.models.entities.CategoryEntity();
+        var category = new CategoryEntity();
         category.setName(Util.normalizeText(name));
         category.setActive(true);
         categoryRepository.save(category);
@@ -32,9 +30,6 @@ public class CategoryService {
     public String updateCategory(UUID id, String name) {
         var category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category with id '" + id + "' not found."));
 
-        if (name == null || name.isEmpty()) {
-            throw new RuntimeException("Category name cannot be null or empty.");
-        }
         category.setName(Util.normalizeText(name));
         categoryRepository.save(category);
         return "Category updated successfully.";

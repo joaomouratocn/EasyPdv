@@ -20,9 +20,6 @@ public class MeasureService {
             throw new RuntimeException("The measure with name " + m.getName() + "' already exists. if you not found contact the support.");
         });
 
-        if (name == null || name.isEmpty()) {
-            throw new RuntimeException("Measure name cannot be null or empty.");
-        }
         var measure = new MeasureEntity();
         measure.setName(Util.normalizeText(name));
         measure.setActive(true);
@@ -33,9 +30,6 @@ public class MeasureService {
     public String updateMeasure(UUID id, String name) {
         var measure = measureRepository.findById(id).orElseThrow(() -> new RuntimeException("Measure with id '" + id + "' not found."));
 
-        if (name == null || name.isEmpty()) {
-            throw new RuntimeException("Measure name cannot be null or empty.");
-        }
         measure.setName(Util.normalizeText(name));
         measureRepository.save(measure);
         return "Measure updated successfully.";
