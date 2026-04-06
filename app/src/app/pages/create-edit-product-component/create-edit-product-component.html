@@ -1,69 +1,126 @@
 <div class="container h-full p-4 flex flex-col mx-auto">
   <h1 class="text-3xl font-bold mb-4 mx-auto text-gray-800">{{ actionType() }}</h1>
-  <form [formGroup]="receivedProduct" class="flex flex-col gap-1">
-    <div>
+  <form [formGroup]="receivedProduct" class="flex flex-col">
+    <div class="mb-4">
       <label for="name">Nome: </label>
       <input
         id="name"
         name="name"
         type="text"
         formControlName="name"
-        class="border rounded-lg p-2 mb-4 w-full focus:ring focus:ring-blue-500 outline-none"
+        class="border rounded-lg p-2 w-full focus:ring focus:ring-blue-500 outline-none"
       />
+      @if (receivedProduct.get('name')?.invalid && receivedProduct.get('name')?.touched) {
+        <div class="text-red-500 text-sm">
+          @if (receivedProduct.get('name')?.errors?.['required']) {
+            <span>O nome é obrigatório.</span>
+          }
+          @if (receivedProduct.get('name')?.errors?.['minlength']) {
+            <span>O nome deve ter no mínimo 4 caracteres.</span>
+          }
+        </div>
+      }
     </div>
-    <div>
+    <div class="mb-4">
       <label for="barcode">Código de Barras: </label>
       <input
         id="barcode"
         name="barcode"
         type="text"
         formControlName="barcode"
-        class="border rounded-lg p-2 mb-4 w-full focus:ring focus:ring-blue-500 outline-none"
+        class="border rounded-lg p-2 w-full focus:ring focus:ring-blue-500 outline-none"
       />
+      @if (receivedProduct.get('barcode')?.invalid && receivedProduct.get('barcode')?.touched) {
+        <div class="text-red-500 text-sm">
+          @if (receivedProduct.get('barcode')?.errors?.['required']) {
+            <span>O código de barras é obrigatório.</span>
+          }
+          @if (receivedProduct.get('barcode')?.errors?.['minlength']) {
+            <span>O nome deve ter no mínimo 4 caracteres.</span>
+          }
+        </div>
+      }
     </div>
-    <div>
+    <div class="mb-4">
       <label for="category">Selecione um categoria:</label>
 
-      <select name="category" id="category" formControlName="category">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+      <select
+        name="category"
+        id="category"
+        formControlName="category"
+        [compareWith]="compareObj"
+        class="border rounded-lg p-2 w-full focus:ring focus:ring-blue-500 outline-none"
+      >
+        <option value="null" disabled>Selecione um categoria</option>
+        @for (category of categories(); track category.id) {
+          <option [ngValue]="category">{{ category.name }}</option>
+        }
       </select>
+      @if (receivedProduct.get('category')?.invalid && receivedProduct.get('category')?.touched) {
+        <div class="text-red-500 text-sm">
+          @if (receivedProduct.get('category')?.errors?.['required']) {
+            <span>A categoria é obrigatória.</span>
+          }
+        </div>
+      }
     </div>
-    <div>
-      <label for="stock">Quantidade de entrada: </label>
-      <input
-        id="stock"
-        name="stock"
-        type="text"
-        formControlName="stock"
-        class="border rounded-lg p-2 mb-4 w-full focus:ring focus:ring-blue-500 outline-none"
-      />
+    <div class="mb-4">
+      <label for="measure">Selecione uma unidade de medida:</label>
+      <select
+        name="measure"
+        id="measure"
+        formControlName="measure"
+        [compareWith]="compareObj"
+        class="border rounded-lg p-2 w-full focus:ring focus:ring-blue-500 outline-none"
+      >
+        <option value="null" disabled>Selecione uma unidade</option>
+        @for (measure of measures(); track measure.id) {
+          <option [ngValue]="measure">{{ measure.name }}</option>
+        }
+      </select>
+      @if (receivedProduct.get('measure')?.invalid && receivedProduct.get('measure')?.touched) {
+        <div class="text-red-500 text-sm">
+          @if (receivedProduct.get('measure')?.errors?.['required']) {
+            <span>A unidade de medida é obrigatória.</span>
+          }
+        </div>
+      }
     </div>
-    <div>
-      <label for="buy_price">Preço de compra: </label>
-      <input
-        id="buy_price"
-        name="buy_price"
-        type="text"
-        formControlName="buy_price"
-        class="border rounded-lg p-2 mb-4 w-full focus:ring focus:ring-blue-500 outline-none"
-      />
+    <div class="mb-4">
+      <div>
+        <input
+          type="checkbox"
+          id="enable-alert"
+          name="enable-alert"
+          formControlName="alert_stock"
+        />
+        <label for="enable-alert" class="px-1">Ativar alerta de estoque baixo</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          id="enable-alert"
+          name="enable-alert"
+          formControlName="alert_stock"
+        />
+        <label for="enable-alert" class="px-1">Usar markup no preço de venda</label>
+      </div>
     </div>
-    <div>
-      <label for="sale_price">Preço de venda: </label>
-      <input
-        id="sale_price"
-        name="sale_price"
-        type="text"
-        formControlName="sale_price"
-        class="border rounded-lg p-2 mb-4 w-full focus:ring focus:ring-blue-500 outline-none"
-      />
-    </div>
-    <div>
-      <input type="checkbox" id="enable-alert" name="enable-alert" formControlName="alert_stock" />
-      <label for="enable-alert" class="px-1">Ativar alerta de estoque baixo</label>
+    <div class="flex ml-auto gap-2">
+      <button
+        type="button"
+        [routerLink]="['/products']"
+        class="bg-red-600 text-white rounded-lg px-6 py-2 hover:bg-red-700 font-medium shadow-md transition-transform active:scale-95 mt-4"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        [disabled]="receivedProduct.invalid"
+        class="bg-blue-600 disabled:bg-gray-400 text-white rounded-lg px-6 py-2 hover:bg-blue-700 font-medium shadow-md transition-transform active:scale-95 mt-4"
+      >
+        {{ actionButtonText() }}
+      </button>
     </div>
   </form>
 </div>
