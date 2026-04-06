@@ -80,3 +80,4 @@ app/.DS_Store
 app/Thumbs.db
 
 .vscode
+.idea
