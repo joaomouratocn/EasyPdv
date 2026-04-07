@@ -21,6 +21,7 @@ public class ProductEntity {
     private String name;
     private String description;
     private String barcode;
+    private BigDecimal markup;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryEntity category;

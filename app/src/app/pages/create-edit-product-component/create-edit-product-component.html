@@ -1,6 +1,6 @@
 <div class="container h-full p-4 flex flex-col mx-auto">
   <h1 class="text-3xl font-bold mb-4 mx-auto text-gray-800">{{ actionType() }}</h1>
-  <form [formGroup]="receivedProduct" class="flex flex-col">
+  <form [formGroup]="receivedProduct" class="flex flex-col" onsubmit="saveProduct()">
     <div class="mb-4">
       <label for="name">Nome: </label>
       <input
@@ -37,6 +37,26 @@
           }
           @if (receivedProduct.get('barcode')?.errors?.['minlength']) {
             <span>O nome deve ter no mínimo 4 caracteres.</span>
+          }
+        </div>
+      }
+    </div>
+    <div class="mb-4">
+      <label for="min_stock">Estoque minímo: </label>
+      <input
+        id="min_stock"
+        name="min_stock"
+        type="number"
+        formControlName="min_stock"
+        class="border rounded-lg p-2 w-full focus:ring focus:ring-blue-500 outline-none"
+      />
+      @if (receivedProduct.get('min_stock')?.invalid && receivedProduct.get('min_stock')?.touched) {
+        <div class="text-red-500 text-sm">
+          @if (receivedProduct.get('min_stock')?.errors?.['required']) {
+            <span>O estoque minimo é obrigatório.</span>
+          }
+          @if (receivedProduct.get('min_stock')?.errors?.['min']) {
+            <span>O estoque minímo deve ser pelo menos 1.</span>
           }
         </div>
       }
@@ -85,6 +105,18 @@
           }
         </div>
       }
+    </div>
+    <div>
+      <div class="mb-4">
+        <label for="enable-alert" class="px-1">Descrição: </label>
+        <textarea
+          id="enable-alert"
+          name="enable-alert"
+          rows="5"
+          formControlName="description"
+          class="border rounded-lg p-2 w-full focus:ring focus:ring-blue-500 outline-none resize-none"
+        ></textarea>
+      </div>
     </div>
     <div class="mb-4">
       <div>

@@ -1,11 +1,12 @@
-import { CategoryDto } from "./category-dto";
-import { MeasureDto } from "./measure-dto";
+import { CategoryDto } from './category-dto';
+import { MeasureDto } from './measure-dto';
 
 export interface ProductDto {
   id: string;
   name: string;
   description: string;
   barcode: string;
+  markup: number;
   category: CategoryDto;
   measure: MeasureDto;
   stock: number;

@@ -83,6 +83,7 @@ CREATE TABLE "products" (
     "name" varchar(50) NOT NULL,
     "description" varchar(100),
     "barcode" varchar(15) UNIQUE NOT NULL,
+    "markup" decimal(13,2) NOT NULL,
     "category_id" UUID NOT NULL,
     "measure_id" UUID NOT NULL,
     "stock" decimal(13,2),

@@ -18,6 +18,8 @@ public record ProductDto(
         @NotBlank
         String barcode,
         @NotNull
+        BigDecimal markup,
+        @NotNull
         CategoryDto category,
         @NotNull
         MeasureDto measure,
@@ -42,6 +44,7 @@ public record ProductDto(
                 productEntity.getName(),
                 productEntity.getDescription(),
                 productEntity.getBarcode(),
+                productEntity.getMarkup(),
                 new CategoryDto(productEntity.getCategory()),
                 new MeasureDto(productEntity.getMeasure()),
                 productEntity.getStock(),

@@ -35,7 +35,7 @@ export class CreateEditProductComponent {
     barcode: new FormControl<string>('', [Validators.required, Validators.pattern('^[0-9]*$')]),
     category: new FormControl<CategoryDto | null>(null, [Validators.required]),
     measure: new FormControl<MeasureDto | null>(null, [Validators.required]),
-    min_stock: new FormControl<number>(0, [Validators.required, Validators.min(1)]),
+    min_stock: new FormControl<number>(1, [Validators.required, Validators.min(1)]),
     alert_stock: new FormControl<boolean>(true),
   });
 
@@ -50,7 +50,11 @@ export class CreateEditProductComponent {
     return o1.id === o2.id;
   }
 
-  saveProduct() {}
+  saveProduct() {
+    if (this.receivedProduct.get('id') && this.receivedProduct.valid) {
+      this.productService.updateProduct(this.receivedProduct);
+    }
+  }
 
   loadForm(product: ProductDto) {
     this.receivedProduct.patchValue({
