@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductDto } from '../../models/dtos/product-dto';
 import { ProductService } from '../../services/product-service';
 import { CategoryDto } from '../../models/dtos/category-dto';
@@ -16,7 +16,8 @@ import { MeasureService } from '../../services/measure-service';
   styleUrl: './create-edit-product-component.css',
 })
 export class CreateEditProductComponent {
-  private router = inject(ActivatedRoute);
+  private actRouter = inject(ActivatedRoute);
+  private router = inject(Router);
   private snackBar = inject(MatSnackBar);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
@@ -35,6 +36,7 @@ export class CreateEditProductComponent {
     barcode: new FormControl<string>('', [Validators.required, Validators.pattern('^[0-9]*$')]),
     category: new FormControl<CategoryDto | null>(null, [Validators.required]),
     measure: new FormControl<MeasureDto | null>(null, [Validators.required]),
+    markup: new FormControl<number>(1, [Validators.required, Validators.min(1)]),
     min_stock: new FormControl<number>(1, [Validators.required, Validators.min(1)]),
     alert_stock: new FormControl<boolean>(true),
   });
@@ -51,8 +53,27 @@ export class CreateEditProductComponent {
   }
 
   saveProduct() {
-    if (this.receivedProduct.get('id') && this.receivedProduct.valid) {
-      this.productService.updateProduct(this.receivedProduct);
+    const productDto = this.receivedProduct.getRawValue() as ProductDto;
+    if (productDto.id) {
+      this.productService.updateProduct(productDto).subscribe({
+        next: (result) => {
+          this.snackBar.open(result.message, 'X', { duration: 3000 });
+          this.router.navigate(['/products']);
+        },
+        error: (err) => {
+          this.snackBar.open(err.error.message, 'x', { panelClass: ['error-snackbar'] });
+        },
+      });
+    } else {
+      this.productService.createProduct(productDto).subscribe({
+        next: (result) => {
+          this.snackBar.open(result.message, 'X', { duration: 3000 });
+          this.router.navigate(['/products']);
+        },
+        error: (err) => {
+          this.snackBar.open(err.error.message, 'X', { panelClass: ['error-snackbar'] });
+        },
+      });
     }
   }
 
@@ -63,6 +84,7 @@ export class CreateEditProductComponent {
       description: product.description,
       barcode: product.barcode,
       category: product.category,
+      markup: product.markup,
       measure: product.measure,
       min_stock: product.min_stock,
       alert_stock: product.alert_stock,
@@ -81,7 +103,7 @@ export class CreateEditProductComponent {
   */
 
   valideteReceivedProduct() {
-    const id = this.router.snapshot.paramMap.get('id');
+    const id = this.actRouter.snapshot.paramMap.get('id');
 
     if (id) {
       this.loading.set(true);

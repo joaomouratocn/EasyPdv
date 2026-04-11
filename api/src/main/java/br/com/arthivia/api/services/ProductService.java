@@ -10,6 +10,7 @@ import br.com.arthivia.api.models.entities.CategoryEntity;
 import br.com.arthivia.api.models.entities.MeasureEntity;
 import br.com.arthivia.api.models.entities.ProductEntity;
 import br.com.arthivia.api.repositories.ProductRepository;
+import br.com.arthivia.api.util.Util;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -23,15 +24,12 @@ public class ProductService {
         });
 
         var product = new ProductEntity();
-        product.setName(productDto.name());
+        product.setName(Util.normalizeText(productDto.name()));
         product.setBarcode(productDto.barcode());
+        product.setMarkup(productDto.markup());
         product.setCategory(new CategoryEntity(productDto.category()));
         product.setMeasure(new MeasureEntity(productDto.measure()));
         product.setDescription(productDto.description());
-        product.setStock(productDto.stock());
-        product.setBuy_price(productDto.buy_price());
-        product.setSale_price(productDto.sale_price());
-        product.setStock(productDto.stock());
         product.setMin_stock(productDto.min_stock());
         product.setAlert_stock(productDto.alert_stock());
         productRepository.save(product);
@@ -44,15 +42,11 @@ public class ProductService {
     public String updateProduct(UUID id, ProductDto productDto) {
         var product = productRepository.findByIdAndActiveTrue(id).orElseThrow(() -> new RuntimeException("Product with id '" + id + "' not found."));
 
-        product.setName(productDto.name());
+        product.setName(Util.normalizeText(productDto.name()));
         product.setBarcode(productDto.barcode());
         product.setCategory(new CategoryEntity(productDto.category()));
         product.setMeasure(new MeasureEntity(productDto.measure()));
         product.setDescription(productDto.description());
-        product.setStock(productDto.stock());
-        product.setBuy_price(productDto.buy_price());
-        product.setSale_price(productDto.sale_price());
-        product.setStock(productDto.stock());
         product.setMin_stock(productDto.min_stock());
         product.setAlert_stock(productDto.alert_stock());
         productRepository.save(product);
@@ -61,10 +55,8 @@ public class ProductService {
     }
 
     public String deleteProduct(UUID id) {
-        var product = productRepository.findByIdAndActiveTrue(id).orElseThrow(() -> new RuntimeException("Product with id '" + id + "' not found."));
-        product.setActive(false);
-        productRepository.save(product);
-
+        productRepository.findByIdAndActiveTrue(id).orElseThrow(() -> new RuntimeException("Product with id '" + id + "' not found."));
+        productRepository.disableProduct(id);
         return "Product deleted successfully.";
     }
 

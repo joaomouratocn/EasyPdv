@@ -9,9 +9,6 @@ export interface ProductDto {
   markup: number;
   category: CategoryDto;
   measure: MeasureDto;
-  stock: number;
-  buy_price: number;
-  sale_price: number;
   min_stock: number;
   alert_stock: boolean;
 }

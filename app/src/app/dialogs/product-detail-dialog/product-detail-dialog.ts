@@ -1,10 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-detail-dialog',
-  imports: [MatDialogModule, CurrencyPipe],
+  imports: [MatDialogModule],
   templateUrl: './product-detail-dialog.html',
   styleUrl: './product-detail-dialog.css',
 })

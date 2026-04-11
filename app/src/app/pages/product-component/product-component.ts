@@ -1,10 +1,9 @@
-import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ConfirmDeleteDialog } from '../../dialogs/confirm-delete-dialog/confirm-delete-dialog';
 import { ProductDetailDialog } from '../../dialogs/product-detail-dialog/product-detail-dialog';
 import { ProductDto } from '../../models/dtos/product-dto';
@@ -12,14 +11,16 @@ import { ProductService } from '../../services/product-service';
 
 @Component({
   selector: 'app-product-component',
-  imports: [FormsModule, MatProgressSpinnerModule, CurrencyPipe, RouterLink],
+  imports: [FormsModule, MatProgressSpinnerModule, RouterLink],
   templateUrl: './product-component.html',
   styleUrl: './product-component.css',
 })
 export class ProductComponent {
+  private actRouter = inject(ActivatedRoute);
   private productsService = inject(ProductService);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   productName = model('');
   loading = signal(false);
@@ -78,8 +79,14 @@ export class ProductComponent {
   }
 
   openDetailDialog(product: ProductDto) {
-    this.dialog.open(ProductDetailDialog, {
+    const dialogRef = this.dialog.open(ProductDetailDialog, {
       data: { product: product },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.router.navigate(['edit', product.id], { relativeTo: this.actRouter });
+      }
     });
   }
 }

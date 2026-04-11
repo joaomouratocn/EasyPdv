@@ -18,20 +18,13 @@ public record ProductDto(
         @NotBlank
         String barcode,
         @NotNull
+        @Positive
         BigDecimal markup,
         @NotNull
         CategoryDto category,
         @NotNull
         MeasureDto measure,
         @NotNull
-        @Positive
-        BigDecimal stock,
-        @NotNull
-        @Positive
-        BigDecimal buy_price,
-        @NotNull
-        @Positive
-        BigDecimal sale_price,
         @NotNull
         @Positive
         BigDecimal min_stock,
@@ -47,9 +40,6 @@ public record ProductDto(
                 productEntity.getMarkup(),
                 new CategoryDto(productEntity.getCategory()),
                 new MeasureDto(productEntity.getMeasure()),
-                productEntity.getStock(),
-                productEntity.getBuy_price(),
-                productEntity.getSale_price(),
                 productEntity.getMin_stock(),
                 productEntity.isAlert_stock()
         );

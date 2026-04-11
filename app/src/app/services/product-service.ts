@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ProductDto } from '../models/dtos/product-dto';
 import { Observable } from 'rxjs';
+import { ProductDto } from '../models/dtos/product-dto';
 import { SuccessResponse } from '../models/dtos/success-response';
-import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class ProductService {
   }
 
   updateProduct(productDto: ProductDto): Observable<SuccessResponse> {
-    return this.http.put<SuccessResponse>(`${this.API}/update`, productDto);
+    return this.http.put<SuccessResponse>(`${this.API}/update/${productDto.id}`, productDto);
   }
 
   deleteProduct(id: string): Observable<SuccessResponse> {

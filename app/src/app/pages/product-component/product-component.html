@@ -22,8 +22,6 @@
             <tr class="bg-gray-300 text-gray-700 uppercase text-sm">
               <th class="px-6 py-3 font-bold w-1/3">Nome</th>
               <th class="px-6 py-3 font-bold">Cod. Barras</th>
-              <th class="px-6 py-3 font-bold">Preço Venda</th>
-              <th class="px-6 py-3 font-bold">Quantidade</th>
               <th class="px-6 py-3 font-bold text-center">Ações</th>
             </tr>
           </thead>
@@ -39,14 +37,6 @@
 
                 <td class="px-6 py-4 text-gray-700 whitespace-nowrap">
                   {{ product.barcode }}
-                </td>
-
-                <td class="px-6 py-4 text-gray-700 whitespace-nowrap">
-                  {{ product.sale_price | currency: 'BRL' }}
-                </td>
-
-                <td class="px-6 py-4 text-gray-700">
-                  {{ product.stock }}
                 </td>
 
                 <td class="px-6 py-4">

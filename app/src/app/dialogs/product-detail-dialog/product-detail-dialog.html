@@ -11,16 +11,8 @@
         <span class="text-gray-800 font-semibold">{{ data.product.barcode }}</span>
       </div>
       <div>
-        <span class="font-medium text-gray-600">Preço de Compra: </span>
-        <span class="text-green-800 font-semibold">{{
-          data.product.buy_price | currency: 'BRL'
-        }}</span>
-      </div>
-      <div>
-        <span class="font-medium text-gray-600">Preço de Venda: </span>
-        <span class="text-red-800 font-semibold">{{
-          data.product.sale_price | currency: 'BRL'
-        }}</span>
+        <span class="font-medium text-gray-600">Markup: </span>
+        <span class="text-gray-800 font-semibold">{{ data.product.markup }}</span>
       </div>
       <div>
         <span class="font-medium text-gray-600">Categoria: </span>
@@ -29,10 +21,6 @@
       <div>
         <span class="font-medium text-gray-600">Unidade de medida: </span>
         <span class="text-gray-800 font-semibold">{{ data.product.measure.name }}</span>
-      </div>
-      <div>
-        <span class="font-medium text-gray-600">Quantidade em Estoque: </span>
-        <span class="text-gray-800 font-semibold">{{ data.product.stock }}</span>
       </div>
       <div>
         <span class="font-medium text-gray-600">Descrição: </span>
