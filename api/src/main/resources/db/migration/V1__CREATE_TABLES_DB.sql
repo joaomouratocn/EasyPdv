@@ -9,7 +9,9 @@ CREATE TABLE "customer" (
     "name" varchar(50) NOT NULL,
     "cpf" varchar(15) UNIQUE NOT NULL,
     "phone" varchar(20) NOT NULL,
-    "limit" decimal(13,2) DEFAULT 600
+    "limit" decimal(13,2) DEFAULT 600,
+    "active" boolean DEFAULT true,
+    "created_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "pos" (
